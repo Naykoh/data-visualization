@@ -1,0 +1,10 @@
+/* chaque graphe est contenu dans une div flexbox */
+.container{
+display : flex;
+flex-wrap: wrap;
+}
+
+.item{
+margin : 5px;
+display : none;
+}

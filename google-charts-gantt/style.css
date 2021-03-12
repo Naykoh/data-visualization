@@ -1,0 +1,16 @@
+.container{
+display : flex;
+}
+
+.item{
+margin : 5px;
+display : none;
+}
+
+.pop{
+display:none;
+}
+
+div.google-visualization-tooltip {
+transform: rotate(30deg);
+}

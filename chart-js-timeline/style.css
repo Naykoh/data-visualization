@@ -1,0 +1,12 @@
+.container{
+display : flex;
+}
+
+.item{
+margin : 5px;
+display : non
+}
+
+.pop{
+display:none;
+}

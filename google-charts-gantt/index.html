@@ -1,0 +1,158 @@
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current', {'packages':['gantt']});
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.load('current', {'packages':['bar']});
+
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var datagantt = new google.visualization.DataTable();
+      datagantt.addColumn('string', 'Task ID');
+      datagantt.addColumn('string', 'Task Name');
+      datagantt.addColumn('string', 'Resource');
+      datagantt.addColumn('date', 'Start Date');
+      datagantt.addColumn('date', 'End Date');
+      datagantt.addColumn('number', 'Duration');
+      datagantt.addColumn('number', 'Percent Complete');
+      datagantt.addColumn('string', 'Dependencies');
+      datagantt.addRows([
+        ['2014Spring', 'Spring 2014', 'spring',
+         new Date(2014, 2, 22), new Date(2014, 5, 20), null, null, null],
+        ['2014Summer', 'Summer 2014', 'summer',
+         new Date(2014, 5, 21), new Date(2014, 8, 20), null, null, null],
+        ['2014Autumn', 'Autumn 2014', 'autumn',
+         new Date(2014, 8, 21), new Date(2014, 11, 20), null, null, null],
+        ['2014Winter', 'Winter 2014', 'winter',
+         new Date(2014, 11, 21), new Date(2015, 2, 21), null, null, null],
+        ['2015Spring', 'Spring 2015', 'spring',
+         new Date(2015, 2, 22), new Date(2015, 5, 20), null, null, null],
+        ['2015Summer', 'Summer 2015', 'summer',
+         new Date(2015, 5, 21), new Date(2015, 8, 20), null, null, null],
+        ['2015Autumn', 'Autumn 2015', 'autumn',
+         new Date(2015, 8, 21), new Date(2015, 11, 20), null, null, null],
+        ['2015Winter', 'Winter 2015', 'winter',
+         new Date(2015, 11, 21), new Date(2016, 2, 21), null, null, null],
+        ['Football', 'Football Season', 'sports',
+         new Date(2014, 8, 4), new Date(2015, 1, 1), null, null, null],
+        ['Baseball', 'Baseball Season', 'sports',
+         new Date(2015, 2, 31), new Date(2015, 9, 20), null, null, null],
+        ['Basketball', 'Basketball Season', 'sports',
+         new Date(2014, 9, 28), new Date(2015, 5, 20), null, null, null],
+        ['Hockey', 'Hockey Season', 'sports',
+         new Date(2014, 9, 8), new Date(2015, 5, 21), null, null, null]
+      ]);
+      var optionsgantt = {
+        tooltip: { isHtml: true },
+        height: 400,
+        gantt: {
+          trackHeight: 30,
+          percentEnabled : false
+        }
+      };
+      var chartgantt = new google.visualization.Gantt(document.getElementById('chart_gantt'));
+
+      var datagraph = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2013',  1000,      400],
+          ['2014',  1170,      460],
+          ['2015',  660,       1120],
+          ['2016',  1030,      540]
+        ]);
+
+        var optionsgraph = {
+          title: 'Company Performance',
+          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+
+        var chartgraph = new google.visualization.AreaChart(document.getElementById('firstdiv'));
+
+    var databar = new google.visualization.arrayToDataTable([
+          ['Opening Move', 'Percentage'],
+          ["King's pawn (e4)", 44],
+          ["Queen's pawn (d4)", 31],
+          ["Knight to King 3 (Nf3)", 12],
+          ["Queen's bishop pawn (c4)", 10],
+          ['Other', 3]
+        ]);
+
+        var optionsbar = {
+          title: 'Chess opening moves',
+          width: 900,
+          legend: { position: 'none' },
+          chart: { title: 'Chess opening moves',
+                   subtitle: 'popularity by percentage' },
+          bars: 'horizontal', // Required for Material Bar Charts.
+          axes: {
+            x: {
+              0: { side: 'top', label: 'Percentage'} // Top x-axis.
+            }
+          },
+          bar: { groupWidth: "90%" }
+        };
+
+        var chartbar = new google.charts.Bar(document.getElementById('seconddiv'));
+
+
+        var datadonut = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+        ]);
+
+        var optionsdonut = {
+          title: 'My Daily Activities',
+          pieHole: 0.4,
+        };
+
+        var chartdonut = new google.visualization.PieChart(document.getElementById('thirddiv'));
+
+
+        function selectHandler() {
+          var selectedItem = chartgantt.getSelection()[0];
+          if (selectedItem) {
+            var topping = datagantt.getValue(selectedItem.row, 0);
+            if (topping == "2014Spring"){
+            firstBtn();
+            }
+            else if (topping == "2014Summer"){
+            secondBtn();
+            }
+            else {
+            thirdBtn();
+            }
+          }
+        }
+
+      google.visualization.events.addListener(chartgantt, 'select', selectHandler);
+
+
+      chartdonut.draw(datadonut, optionsdonut);
+      chartbar.draw(databar, optionsbar);
+      chartgraph.draw(datagraph, optionsgraph);
+      chartgantt.draw(datagantt, optionsgantt);
+    }
+  </script>
+</head>
+<body>
+<div id="chart_gantt"></div>
+<button onclick="firstBtn()" type="button">First</button>
+<button onclick="secondBtn()" type="button">Second</button>
+<button onclick="thirdBtn()" type="button">Third</button>
+
+<div class="container">
+    <div id="firstdiv" class="item" style="display: none;"><img src="https://dummyimage.com/600x400/d91473/fff"></div>
+    <div id="seconddiv" class="item" style="display: none;"><img src="https://dummyimage.com/600x400/15d92c/fff"></div>
+    <div id="thirddiv" class="item" style="display: none;"><img src="https://dummyimage.com/600x400/1e4ec7/fff"></div>
+</div>
+</body>
+</html>
